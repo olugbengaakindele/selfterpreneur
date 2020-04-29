@@ -1,7 +1,8 @@
 from app.auth import auth
 from flask import render_template, url_for, redirect, request,flash
-from app.auth.forms import RegForm
+from app.auth.forms import RegForm,LoginForm
 from app.auth.models import Users
+from app import bcrypt 
 
 
 @auth.route('/home')
@@ -39,5 +40,22 @@ def reg_user():
 
 @auth.route('/signin', methods =['GET', 'POST'])
 def signin():
+    form = LoginForm()
+    user_email = form.email.data 
+    password = form.password.data
 
-    return render_template('signin.html')
+    #check if email exist
+    email_exist = Users.query.filter_by(user_email =  user_email).first()
+    if email_exist:
+        #check if pasword match email 
+        if bcrypt.check_password_hash(email_exist.password,password):
+
+            return redirect(url_for('me.myprofile'))
+        else:
+            message = 'password is incorrect'
+            return redirect(url_for('auth.signin'))
+    else:
+        return redirect(url_for('me.myprofile'))
+
+
+    return render_template('signin.html' ,form = form )

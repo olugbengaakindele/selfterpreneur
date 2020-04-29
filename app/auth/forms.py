@@ -15,3 +15,10 @@ class RegForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators = [DataRequired(), EqualTo('password',
      message='Passwords must match')])
     submit = SubmitField('Sign Up')
+
+
+class LoginForm(FlaskForm):
+    
+    email = StringField("Email", validators = [DataRequired(), Email()])
+    password = PasswordField("password", validators = [DataRequired()])
+    submit = SubmitField('Login')

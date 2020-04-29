@@ -30,7 +30,8 @@ def create_app(config_type): #test/dev/ prod
     from app.auth import auth 
     app.register_blueprint(auth)
 
-
+    from app.me import me 
+    app.register_blueprint(me)
 
 
     return app
