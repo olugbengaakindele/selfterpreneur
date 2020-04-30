@@ -56,9 +56,12 @@ def signin():
 
                 return redirect(url_for('me.myprofile'))
             else:
-                message = 'password is incorrect'
+
+                flash('password is incorrect')
+                #return redirect(request.url , category = 'alert alert-danger')
                 return redirect(url_for('auth.signin'))
         else:
+            flash('email does not exist')
             return redirect(url_for('auth.signin'))
 
 
