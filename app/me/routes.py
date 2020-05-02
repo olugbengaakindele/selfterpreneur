@@ -12,5 +12,9 @@ def myprofile():
 @me.route("/failedlogin")
 def failedlogin():
 
+    return "failed_login"
 
-    return "me"
+@me.route("/home")
+def home():
+
+    return "Registration Succesful"
