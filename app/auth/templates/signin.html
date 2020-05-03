@@ -2,39 +2,37 @@
 {% block page_body %}
 <!-- Insert Registration Form -->
 {{ super() }}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3 col-lg-3"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 col-lg-3"></div>
+        <div class="col-sm-6 col-lg-6">
 
-            <div class="col-sm-6 col-lg-6">
-       
-                            <form class="mt-50 " method ="POST" action="/myprofile" >
-                                    {{ form.hidden_tag() }}
-                                    <span class="error">
-                                        <span class="error">
-                                            {% if form.email.errors %}
-                                              {% for error in form.email.errors %}
-                                                {{ error }}
-                                              {% endfor %}
-                                            {% endif %}
-                                          </span>
-                                    </span>
-                                    <div class="form-group ">
-                                        {{ form.email (placeholder ='Email',class ='w-100 m-auto')}}
-                                    </div>
-                                    <div class="form-group">
-                                        {{ form.password(placeholder ='Password',class ='w-100') }}
-                                    </div> 
-                                    <div>
-                                        {{ form.submit(class ='btn btn-primary') }}
-                                    </div>  
-                            </form>    
-            </div>
-            <div class="col-sm-3 col-lg-3"></div>    
+            <form class="mt-50 " method="POST" action="/signin">
+                {{ form.hidden_tag() }}
+                <span class="error">
+                    {% if form.password.errors %}
+                        {% for error in form.password.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endif %}
+                </span>
+                <div class="form-group ">
+                    {{ form.email (placeholder ='Email',class ='w-100 m-auto')}}
+                </div>
+                <div class="form-group">
+
+                    {{ form.password(placeholder ='Password',class ='w-100') }}
+                </div>
+                <div>
+                    <span> {{ form.remember_me(class ='btn btn-primary') }}</span>{{ form.remember_me.label }}
+                                </div>
+                <div>
+                    {{ form.submit(class ='btn btn-primary') }}
+                </div>
+            </form>
         </div>
-        
+        <div class="col-sm-3 col-lg-3"></div>
     </div>
+
+</div>
 {% endblock page_body %}
-
-
-

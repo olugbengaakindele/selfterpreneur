@@ -11,18 +11,12 @@
                     <div class="container ">
                         <form class="mt-50 w-100 h-100" method="POST" action="">
                             {{ form.hidden_tag() }}
-   
+                                
                             <div class="form-group ">
                                 {{ form.name (placeholder ='User Name',class ='w-100 m-auto')}}
                             </div>
                             <div class="form-group ">
-                                <span class="error">
-                                    {% if form.email.errors %}
-                                      {% for error in form.email.errors %}
-                                        {{ error }}
-                                      {% endfor %}
-                                    {% endif %}
-                                  </span>
+                                
                                 {{ form.email (placeholder ='Email',class ='w-100 m-auto')}}
                             </div>
                             <div class="form-group">

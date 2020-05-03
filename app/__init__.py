@@ -3,12 +3,15 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_bcrypt import Bcrypt 
-
+from flask_login import LoginManager
 
 
 db = SQLAlchemy()
 bootstrap = Bootstrap()
 bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = "auth.signin"
+login_manager.session_protection = "strong"
 
 
 
@@ -24,7 +27,7 @@ def create_app(config_type): #test/dev/ prod
     #initialize bootstrap
     bootstrap.init_app(app)
     bcrypt.init_app(app)
-
+    login_manager.init_app(app)
 
     #register blueprit
     from app.auth import auth 

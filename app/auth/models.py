@@ -1,8 +1,10 @@
 from app import db
 from flask_sqlalchemy import SQLAlchemy
 from app import bcrypt
+from flask_login import UserMixin
+from app import login_manager
 
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key = True)
@@ -27,3 +29,7 @@ class Users(db.Model):
         db.session.add(user)
         db.session.commit()
         return user
+
+@login_manager.user_loader
+def load_user(id):
+    return Users.query.get(int(id))

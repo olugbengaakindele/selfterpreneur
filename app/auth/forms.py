@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField,BooleanField
 from wtforms.validators import Email, DataRequired, EqualTo, ValidationError
 from app.auth.models import Users
 from app import bcrypt
@@ -40,5 +40,6 @@ class LoginForm(FlaskForm):
 
     email = StringField("Email", validators=[DataRequired(),Email(
         message="please enter a valid email format")])
-    password = PasswordField("password", validators=[DataRequired()])
+    password = PasswordField("password", validators=[DataRequired(),check_credentials])
     submit = SubmitField('Login')
+    remember_me = BooleanField("Remember me")
