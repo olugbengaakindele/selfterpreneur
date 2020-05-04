@@ -16,7 +16,11 @@
                                 {{ form.name (placeholder ='User Name',class ='w-100 m-auto')}}
                             </div>
                             <div class="form-group ">
-                                
+                                {% if form.email.errors %}
+                                    {% for error in form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                {% endif %}
                                 {{ form.email (placeholder ='Email',class ='w-100 m-auto')}}
                             </div>
                             <div class="form-group">
