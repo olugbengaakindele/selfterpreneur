@@ -2,7 +2,7 @@ from app.auth import auth
 from flask import render_template, url_for, redirect, request, flash
 from app.auth.forms import RegForm, LoginForm
 from app.auth.models import Users
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required
 from app import bcrypt
 
 
@@ -57,3 +57,10 @@ def signin():
           
    
     return render_template('signin.html', form=form)
+
+@auth.route('/signout')
+@login_required
+def signout():
+           
+    logout_user()
+    return redirect(url_for('me.home'))

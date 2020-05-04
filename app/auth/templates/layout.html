@@ -50,6 +50,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-lowercase text-muted h6">Loggedin as {{ current_user.user_name.title() }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('auth.signout') }}">Logout</a>
+                    </li>
 
                 {% else %}
                     <li class="nav-item">
