@@ -1,10 +1,15 @@
 from app.auth import auth
+import os
 from flask import render_template, url_for, redirect, request, flash
 from app.auth.forms import RegForm, LoginForm
 from app.auth.models import Users
 from flask_login import login_user, logout_user, login_required
 from app import bcrypt
+from app import Message, mail
+from itsdangerous import URLSafeSerializer,SignatureExpired,BadTimeSignature
 
+
+s = URLSafeSerializer(os.urandom(32))
 
 @auth.route('/home')
 def home():
@@ -31,6 +36,13 @@ def reg_user():
             # the function below creates new user records in database
             Users.create_user(name, email, password)
             flash('Registration Successful', category='success')
+
+            #this part send emil verfication link
+            token = s.dumps(email, salt = 'email_verify')
+            msg = Message('Confirm Email', sender ='akindelegbenga@gmail.com', recipients=[email])
+            link = url_for('auth.verify_email', token = token, _external= True)
+            msg.body = 'Your link is {}'.format(link)
+            mail.send(msg)
             return redirect(url_for('me.home'))
 
     return render_template('reg.html', form=form)
@@ -64,3 +76,19 @@ def signout():
            
     logout_user()
     return redirect(url_for('me.home'))
+
+
+
+#this url takes in the emil verifiction
+@auth.route('/email_verification/<token>')
+def verify_email(token):
+    try:
+        email = s.loads(token,salt = 'email_verify',max_age= 20)
+
+    except SignatureExpired:
+        return '<h3>Your token expired</h3>'
+    except BadTimeSignature:
+
+        return '<h3>Wrong Link</h3>'
+
+    return '<h3>Your token works</h3>'
