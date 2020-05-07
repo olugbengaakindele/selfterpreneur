@@ -1,7 +1,7 @@
 from app.auth import auth
 import os
 from flask import render_template, url_for, redirect, request, flash
-from app.auth.forms import RegForm, LoginForm
+from app.auth.forms import RegForm, LoginForm, DeleteForm
 from app.auth.models import Users
 from flask_login import login_user, logout_user, login_required
 from app import bcrypt
@@ -48,6 +48,27 @@ def reg_user():
     return render_template('reg.html', form=form)
 
 
+
+#this url takes in the emil verifiction
+@auth.route('/email_verification/<token>')
+def verify_email(token):
+    try:
+        email = s.loads(token,salt = 'email_verify',max_age= 20)
+
+    except SignatureExpired:
+        return '<h3>Your token expired</h3>'
+    except BadTimeSignature:
+
+        return '<h3>Wrong Link</h3>'
+
+    return '<h3>Your token works</h3>'
+
+
+
+
+
+
+
 @auth.route('/signin', methods=['GET', 'POST'])
 def signin():
     form = LoginForm()
@@ -70,6 +91,8 @@ def signin():
    
     return render_template('signin.html', form=form)
 
+
+
 @auth.route('/signout')
 @login_required
 def signout():
@@ -78,17 +101,11 @@ def signout():
     return redirect(url_for('me.home'))
 
 
+#this routes deletes exisitinfg emails to be used for testing 
+@auth.route("/delete")
+def delete_email():
+    form = DeleteForm()
 
-#this url takes in the emil verifiction
-@auth.route('/email_verification/<token>')
-def verify_email(token):
-    try:
-        email = s.loads(token,salt = 'email_verify',max_age= 20)
+    return render_template("delete_email.html", form = form )
 
-    except SignatureExpired:
-        return '<h3>Your token expired</h3>'
-    except BadTimeSignature:
 
-        return '<h3>Wrong Link</h3>'
-
-    return '<h3>Your token works</h3>'

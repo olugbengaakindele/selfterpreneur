@@ -43,3 +43,11 @@ class LoginForm(FlaskForm):
     password = PasswordField("password", validators=[DataRequired(),check_credentials])
     submit = SubmitField('Login')
     remember_me = BooleanField("Remember me")
+
+class DeleteForm(FlaskForm):
+    
+    email = StringField("Email", validators=[DataRequired(),Email(
+        message="please enter a valid email format")])
+    password = PasswordField("password", validators=[DataRequired(),check_credentials])
+    submit = SubmitField('Login')
+    remember_me = BooleanField("Remember me")
