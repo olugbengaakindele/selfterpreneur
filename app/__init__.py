@@ -14,7 +14,7 @@ login_manager = LoginManager()
 login_manager.login_view = "auth.signin"
 login_manager.session_protection = "strong"
 mail = Mail()
-
+SECRET_KEY_2= os.urandom(32)
 
 def create_app(config_type): #test/dev/ prod
     

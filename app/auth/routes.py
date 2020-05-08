@@ -5,11 +5,11 @@ from app.auth.forms import RegForm, LoginForm, DeleteForm
 from app.auth.models import Users
 from flask_login import login_user, logout_user, login_required
 from app import bcrypt
-from app import Message, mail
-from itsdangerous import URLSafeSerializer,SignatureExpired,BadTimeSignature
+from app import Message, mail, SECRET_KEY_2
+from itsdangerous import URLSafeTimedSerializer,SignatureExpired,BadTimeSignature
 
 
-s = URLSafeSerializer(os.urandom(32))
+s = URLSafeTimedSerializer('Thisissecret')
 
 @auth.route('/home')
 def home():
@@ -27,7 +27,7 @@ def reg_user():
         name = form.name.data
         email = form.email.data
         password = form.password.data
-
+        email_con = email
         email_exists = Users.query.filter_by(user_email =  email).first()
         if email_exists:
             flash(u'Email already exist, please login into your account', 'error')
@@ -38,8 +38,8 @@ def reg_user():
             flash('Registration Successful', category='success')
 
             #this part send emil verfication link
-            token = s.dumps(email, salt = 'email_verify')
-            msg = Message('Confirm Email', sender ='akindelegbenga@gmail.com', recipients=[email])
+            token = s.dumps(email_con, salt = 'email_verify')
+            msg = Message('Confirm Email', sender ='akindelegbenga@gmail.com', recipients=[email_con])
             link = url_for('auth.verify_email', token = token, _external= True)
             msg.body = 'Your link is {}'.format(link)
             mail.send(msg)
@@ -52,8 +52,9 @@ def reg_user():
 #this url takes in the emil verifiction
 @auth.route('/email_verification/<token>')
 def verify_email(token):
+
     try:
-        email = s.loads(token,salt = 'email_verify',max_age= 20)
+        email_con = s.loads(token, salt = 'email_verify',max_age= 20)
 
     except SignatureExpired:
         return '<h3>Your token expired</h3>'
@@ -61,13 +62,8 @@ def verify_email(token):
 
         return '<h3>Wrong Link</h3>'
 
-    return '<h3>Your token works</h3>'
-
-
-
-
-
-
+    
+    return redirect(url_for('me.home'))
 
 @auth.route('/signin', methods=['GET', 'POST'])
 def signin():

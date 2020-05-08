@@ -50,4 +50,4 @@ class DeleteForm(FlaskForm):
         message="please enter a valid email format")])
     password = PasswordField("password", validators=[DataRequired(),check_credentials])
     submit = SubmitField('Login')
-    remember_me = BooleanField("Remember me")
+    
