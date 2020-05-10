@@ -4,10 +4,10 @@ from flask import render_template, url_for, redirect, request, flash
 from app.auth.forms import RegForm, LoginForm, DeleteForm
 from app.auth.models import Users
 from flask_login import login_user, logout_user, login_required
-from app import bcrypt
+from app import bcrypt,db
 from app import Message, mail, SECRET_KEY_2
 from itsdangerous import URLSafeTimedSerializer,SignatureExpired,BadTimeSignature
-
+from datetime import datetime
 
 s = URLSafeTimedSerializer('Thisissecret')
 
@@ -35,7 +35,7 @@ def reg_user():
         else:
             # the function below creates new user records in database
             Users.create_user(name, email, password)
-            flash('Registration Successful', category='success')
+            flash('Registration Successful, an email confirmation link has been sent to your email', category='success')
 
             #this part send emil verfication link
             token = s.dumps(email_con, salt = 'email_verify')
@@ -54,7 +54,7 @@ def reg_user():
 def verify_email(token):
 
     try:
-        email_con = s.loads(token, salt = 'email_verify',max_age= 20)
+        email_con = s.loads(token, salt = 'email_verify',max_age= 3600)
 
     except SignatureExpired:
         return '<h3>Your token expired</h3>'
@@ -62,7 +62,15 @@ def verify_email(token):
 
         return '<h3>Wrong Link</h3>'
 
-    
+    user = Users.query.filter_by(user_email=email_con).first()
+    if user.email_confirmed:
+        flash('Account already confirmed. Please login.', 'info')
+    else:
+        user.email_confirmed = True
+        user.email_confirmed_on = datetime.now()
+        db.session.add(user)
+        db.session.commit()
+        flash('Thank you for confirming your email address!')
     return redirect(url_for('me.home'))
 
 @auth.route('/signin', methods=['GET', 'POST'])
