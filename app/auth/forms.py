@@ -49,5 +49,5 @@ class DeleteForm(FlaskForm):
     email = StringField("Email", validators=[DataRequired(),Email(
         message="please enter a valid email format")])
     password = PasswordField("password", validators=[DataRequired(),check_credentials])
-    submit = SubmitField('Login')
+    submit = SubmitField('Delete')
     

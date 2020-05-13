@@ -4,12 +4,13 @@ from flask import render_template, url_for, redirect, request, flash
 from app.auth.forms import RegForm, LoginForm, DeleteForm
 from app.auth.models import Users
 from flask_login import login_user, logout_user, login_required
-from app import bcrypt,db
+from app import bcrypt, db
 from app import Message, mail, SECRET_KEY_2
-from itsdangerous import URLSafeTimedSerializer,SignatureExpired,BadTimeSignature
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
 from datetime import datetime
 
 s = URLSafeTimedSerializer('Thisissecret')
+
 
 @auth.route('/home')
 def home():
@@ -28,7 +29,7 @@ def reg_user():
         email = form.email.data
         password = form.password.data
         email_con = email
-        email_exists = Users.query.filter_by(user_email =  email).first()
+        email_exists = Users.query.filter_by(user_email=email).first()
         if email_exists:
             flash(u'Email already exist, please login into your account', 'error')
             return redirect(url_for('auth.reg_user'))
@@ -37,10 +38,10 @@ def reg_user():
             Users.create_user(name, email, password)
             flash('Registration Successful, an email confirmation link has been sent to your email', category='success')
 
-            #this part send emil verfication link
-            token = s.dumps(email_con, salt = 'email_verify')
-            msg = Message('Confirm Email', sender ='akindelegbenga@gmail.com', recipients=[email_con])
-            link = url_for('auth.verify_email', token = token, _external= True)
+            # this part send emil verfication link
+            token = s.dumps(email_con, salt='email_verify')
+            msg = Message('Confirm Email', sender='akindelegbenga@gmail.com', recipients=[email_con])
+            link = url_for('auth.verify_email', token=token, _external=True)
             msg.body = 'Your link is {}'.format(link)
             mail.send(msg)
             return redirect(url_for('me.home'))
@@ -48,13 +49,11 @@ def reg_user():
     return render_template('reg.html', form=form)
 
 
-
-#this url takes in the emil verifiction
+# this url takes in the emil verifiction
 @auth.route('/email_verification/<token>')
 def verify_email(token):
-
     try:
-        email_con = s.loads(token, salt = 'email_verify',max_age= 3600)
+        email_con = s.loads(token, salt='email_verify', max_age=3600)
 
     except SignatureExpired:
         return '<h3>Your token expired</h3>'
@@ -73,6 +72,7 @@ def verify_email(token):
         flash('Thank you for confirming your email address!')
     return redirect(url_for('me.home'))
 
+
 @auth.route('/signin', methods=['GET', 'POST'])
 def signin():
     form = LoginForm()
@@ -88,28 +88,33 @@ def signin():
         if email_exist:
             # check if pasword match email
             if bcrypt.check_password_hash(email_exist.user_password, password):
+                login_user(email_exist, form.remember_me.data)
+                return redirect(url_for('me.myprofile', myemail_id = user_email ))
 
-                login_user(email_exist,form.remember_me.data)
-                return redirect(url_for('me.myprofile'))
-          
-   
     return render_template('signin.html', form=form)
-
 
 
 @auth.route('/signout')
 @login_required
 def signout():
-           
     logout_user()
     return redirect(url_for('me.home'))
 
 
-#this routes deletes exisitinfg emails to be used for testing 
-@auth.route("/delete")
+# this routes deletes exisitinfg emails to be used for testing
+@auth.route("/delete", methods =['GET', 'POST'])
 def delete_email():
     form = DeleteForm()
+    email = form.email.data
 
-    return render_template("delete_email.html", form = form )
+    if form.validate_on_submit():
+        user = Users.query.filter_by(user_email=email).first()
 
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+        else:
+            flash("email does not exist")
+            return redirect(url_for('delete_email'))
 
+    return render_template("delete_email.html", form=form)

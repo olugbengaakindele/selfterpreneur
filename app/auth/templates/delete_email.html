@@ -10,7 +10,7 @@
             <div class="row m-auto h-75" style="height: 100px">
                 <div class="card cardbody m-auto bg-transparent border-0  w-100">
                     <div class="container ">
-                        <form class="mt-50 w-100 h-100" method="POST" action="/delete">
+                        <form class="mt-50 w-100 h-100" method="POST" action="">
                             {{ form.hidden_tag() }}
                            
                             <div class="form-group ">
@@ -20,6 +20,7 @@
                                     {% endfor %}
                                 {% endif %}
                                 {{ form.email (placeholder ='Email',class ='w-100 m-auto')}}
+                                {{ form.submit }}
                             </div>
                             
                         </form>
