@@ -103,6 +103,7 @@ def signout():
 
 # this routes deletes existing emails to be used for testing
 @auth.route("/delete", methods =['GET', 'POST'])
+
 def delete_email():
     form = DeleteForm()
     email = form.email.data
