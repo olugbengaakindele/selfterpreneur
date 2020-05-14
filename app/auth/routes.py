@@ -101,7 +101,7 @@ def signout():
     return redirect(url_for('me.home'))
 
 
-# this routes deletes exisitinfg emails to be used for testing
+# this routes deletes existing emails to be used for testing
 @auth.route("/delete", methods =['GET', 'POST'])
 def delete_email():
     form = DeleteForm()

@@ -4,17 +4,18 @@ from app.me import me
 from flask import render_template, request, redirect, url_for
 
 
-@me.route("/me/<myemail_id>")
+@me.route("/<myemail_id>")
 def myprofile(myemail_id):
+    # get the info from  personal, business and socail media to render
     return render_template("myprofile.html")
 
 
-@me.route("/failedlogin")
-def failedlogin():
-    return "failed_login"
+@me.route("/<myemail_id>/personalinfo")
+def personalinfo(myemail_id):
+    # get the info from  personal, business and socail media to render
+    return render_template("myprofile.html")
 
 
 @me.route("/home")
 def home():
     return "home.html"
-
