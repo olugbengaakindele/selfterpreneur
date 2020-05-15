@@ -13,6 +13,7 @@ class Personal_Info(db.Model):
     user_mobile_phone = db.Column(db.String(100))
     user_work_phone = db.Column(db.String(100))
     user_city = db.Column(db.String(100), nullable=False)
+    province =  db.Column(db.String(100), nullable=False)
     user_country = db.Column(db.String(100), nullable=False)
 
     def __init__(self, user_name, user_mobile_phone, user_work_phone, user_city, user_country):

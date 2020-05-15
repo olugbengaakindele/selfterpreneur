@@ -1,0 +1,27 @@
+{% extends 'mypage_macro.html' %}
+
+{{ super() }}
+
+{% block content_display %}
+<div class="card">
+    <div class="card-body">
+        <h5>Personal Information Here</h5>
+        <hr>
+        <form class="mt-50 " method="POST" action="">
+            {{ form.hidden_tag() }}
+
+            <div class="input-group">
+
+                {{ form.name(value=current_user.user_name,class ='w-75') }}
+            </div>
+
+            <div class="form-group mt-1">
+                {{ form.email(value=current_user.user_email,class ='w-75') }}
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+{% endblock content_display %}
