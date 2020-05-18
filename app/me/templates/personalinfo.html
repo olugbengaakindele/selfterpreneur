@@ -10,13 +10,53 @@
         <form class="mt-50 " method="POST" action="">
             {{ form.hidden_tag() }}
 
-            <div class="input-group">
+            <div class="form-group w-75 mx-auto">
+                {{ form.name.label }}
+                {{ form.name(value=current_user.user_name,class ='form-control') }}
 
-                {{ form.name(value=current_user.user_name,class ='w-75') }}
             </div>
 
-            <div class="form-group mt-1">
-                {{ form.email(value=current_user.user_email,class ='w-75') }}
+            <div  class="form-group w-75 mx-auto">
+                {{ form.email.label }}
+                {{ form.email(value=current_user.user_email,class ='form-control') }}
+            </div>
+
+             <div  class="form-group w-75 mx-auto">
+                 <span class="error">
+                    {% if form.mobile_phone.errors %}
+                        {% for error in form.mobile_phone.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endif %}
+                </span>
+                {{ form.mobile_phone.label }}
+                {{ form.mobile_phone(placeholder = 'xxx-xxx-xxxx',class ='form-control') }}
+            </div>
+            <div  class="form-group w-75 mx-auto">
+                 <span class="error">
+                    {% if form.work_phone.errors %}
+                        {% for error in form.work_phone.errors %}
+                            {{ error }}
+                        {% endfor %}
+                    {% endif %}
+                </span>
+                {{ form.work_phone.label }}
+                {{ form.work_phone(placeholder = 'xxx-xxx-xxxx',class ='form-control') }}
+            </div>
+
+            <div class="form-group w-75 mx-auto">
+                {{ form.province.label }}
+                {{ form.province(class ='form-control') }}
+
+            </div>
+
+            <div class="form-group w-75 mx-auto">
+                {{ form.city.label }}
+                {{ form.city(class ='form-control') }}
+
+            </div>
+            <div  class="form-group w-75 mx-auto">
+                {{ form.submit.label(class = 'btn btn-primary mx-auto') }}
             </div>
 
         </form>
