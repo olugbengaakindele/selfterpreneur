@@ -16,12 +16,13 @@ class Personal_Info(db.Model):
     user_city = db.Column(db.String(100), nullable=False)
     user_province =  db.Column(db.String(100), nullable=False)
 
-    def __init__(self, user_name, user_mobile_phone, user_work_phone, user_city, user_country):
+    def __init__(self, user_name,user_email, user_mobile_phone, user_work_phone, user_city, user_province):
         self.user_name = user_name
+        self.user_email = user_email
         self.user_mobile_phone = user_mobile_phone
         self.user_work_phone = user_work_phone
         self.user_city = user_city
-        self.user_country = user_country
+        self.user_province = user_province
 
     def __repr__(self):
         return ("Personal Info Created")
@@ -31,7 +32,9 @@ class Personal_Info(db.Model):
         user = cls(user_name=name,
                    user_email= email,
                    user_mobile_phone=mobile_phone,
-                   user_work_phone=work_phone, user_city=city,user_province = province)
+                   user_work_phone=work_phone,
+                   user_city=city,
+                   user_province = province)
 
         db.session.add(user)
         db.session.commit()
