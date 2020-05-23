@@ -19,7 +19,7 @@ class Personal_Info(db.Model):
     def __init__(self, user_name,user_email, user_mobile_phone, user_work_phone, user_city, user_province):
         self.user_name = user_name
         self.user_email = user_email
-        self.user_mobile_phone = user_mobile_phone
+        self = user_mobile_phone
         self.user_work_phone = user_work_phone
         self.user_city = user_city
         self.user_province = user_province
