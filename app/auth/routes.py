@@ -1,7 +1,7 @@
 from app.auth import auth
 import os
 from flask import render_template, url_for, redirect, request, flash
-from app.auth.forms import RegForm, LoginForm, DeleteForm
+from app.auth.forms import RegForm, LoginForm, DeleteForm, SearchForm
 from app.auth.models import Users
 from flask_login import login_user, logout_user, login_required
 from app import bcrypt, db
@@ -14,7 +14,8 @@ s = URLSafeTimedSerializer('Thisissecret')
 
 @auth.route('/home')
 def home():
-    return render_template('layout.html', title='home_page')
+    form = SearchForm()
+    return render_template('index.html', title='home_page', form = form)
 
 
 @auth.route('/register', methods=['GET', 'POST'])

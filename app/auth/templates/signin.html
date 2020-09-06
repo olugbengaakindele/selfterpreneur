@@ -14,9 +14,9 @@
                         {{ form.hidden_tag() }}
                         <span class="error">
                             {% if form.password.errors %}
-                            {% for error in form.password.errors %}
-                            {{ error }}
-                            {% endfor %}
+                                {% for error in form.password.errors %}
+                                <h6 class="text-danger">{{ error }}</h6>
+                                {% endfor %}
                             {% endif %}
                         </span>
                         <div class="form-group ">

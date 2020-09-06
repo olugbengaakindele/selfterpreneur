@@ -2,14 +2,15 @@
 {% block page_body %}
 <!-- Insert Registration Form -->
 {{ super() }}
-<div class="container p-15">
-    <div class="row">
-        <div class="col-sm-3 col-lg-3"></div>
-        <div class="col-sm-6 col-lg-6">
-            <div class="row m-auto h-75" style="height: 100px">
-                <div class="card cardbody m-auto bg-transparent border-0  w-100">
-                    <div class="container ">
-                        <form class="mt-50 w-100 h-100" method="POST" action="">
+<div class="container">
+    <div class="row justify-content-center" id ="login_row_1">
+        <div class="col-12 col-sm-6 col-md-6">
+            <div class="card bg-transparent" id="login_card">
+                <div class="card-header">
+                    <h3 class="h3 text-center mx-auto">Create an account</h6>
+                </div>
+                <div class="card-body">
+                        <form class="mt-50 w-75 mx-auto" method="POST" action="">
                             {{ form.hidden_tag() }}
                                 
                             <div class="form-group ">
@@ -18,7 +19,7 @@
                             <div class="form-group ">
                                 {% if form.email.errors %}
                                     {% for error in form.email.errors %}
-                                        {{ error }}
+                                        <h6 class="text-danger">{{ error }}</h6>
                                     {% endfor %}
                                 {% endif %}
                                 {{ form.email (placeholder ='Email',class ='w-100 m-auto')}}
@@ -42,11 +43,18 @@
                             </div>
                         </form>
                     </div>
-
+                    <div class="card-footer">
+                        <div class="container">
+                            <h6 class="h6 text-center font-italic">We don't share your data, period.</h6>
+                        </div>
+    
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-3 col-lg-3"></div>
         </div>
-
+        <hr>
+        <div class="row" id="login-row-2">
+    
+        </div>
     </div>
     {% endblock page_body %}

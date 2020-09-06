@@ -1,2 +1,24 @@
 {% extends 'layout.html' %}
+{% block page_body %}
+<div class="container">
 
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <div class="row justify-content-center">
+            <div class="col">
+                {{ form.what (placeholder ='What are you looking for',class ='form-control justify-right border border-dark')}}
+            </div>
+            <h3>in </h3>
+            <div class="col">
+                {{ form.where(placeholder ='Postcode',class ='form-control justify-right border border-dark')}}
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+
+
+{% endblock page_body %}

@@ -51,3 +51,6 @@ class DeleteForm(FlaskForm):
     password = PasswordField("password", validators=[DataRequired(),check_credentials])
     submit = SubmitField('Delete')
     
+class SearchForm(FlaskForm):
+    what = StringField("what")
+    where = StringField("Where", validators=[DataRequired()])
