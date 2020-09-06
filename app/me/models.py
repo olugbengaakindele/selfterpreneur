@@ -16,6 +16,8 @@ class Personal_Info(db.Model):
     user_city = db.Column(db.String(100), nullable=False)
     user_province =  db.Column(db.String(100), nullable=False)
 
+
+
     def __init__(self, user_name,user_email, user_mobile_phone, user_work_phone, user_city, user_province):
         self.user_name = user_name
         self.user_email = user_email

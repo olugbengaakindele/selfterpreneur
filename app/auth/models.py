@@ -1,8 +1,9 @@
 from app import db
 from flask_sqlalchemy import SQLAlchemy
 from app import bcrypt
-from flask_login import UserMixin
 from app import login_manager
+from flask_login import UserMixin
+
 from datetime import datetime
 
 class Users(UserMixin, db.Model):
@@ -37,3 +38,4 @@ class Users(UserMixin, db.Model):
 @login_manager.user_loader
 def load_user(id):
     return Users.query.get(int(id))
+

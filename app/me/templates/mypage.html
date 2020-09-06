@@ -10,10 +10,10 @@
                 <hr>
                 <div class="row  text-weight-normal">
                     <div class="col-6">
-                        <h6> Name: {{ user.user_name}} </h6>
+                        <h6> Name: {{ current_user.user_name}} </h6>
                     </div>
                     <div class="col-6">
-                        <h6 class="h6"> Email:{{ user.user_email}} </h6>
+                        <h6 class="h6"> Email:{{ current_user.user_email}} </h6>
                     </div>
                 </div>
                <div class="row  text-weight-normal">
@@ -21,14 +21,14 @@
                         {% if user_work_phone == "" %}
                            <h6> Work Phone: -  </h6>
                         {% else %}
-                           <h6> Work Number: {{ user.user_work_phone}} </h6>
+                           <h6> Work Number: {{ current_user.user_work_phone}} </h6>
                         {% endif %}
                     </div>
                     <div class="col-6">
                         {% if user_mobile_phone == "" %}
                            <h6> Mobile Phone: -  </h6>
                         {% else %}
-                           <h6> Mobile Number: {{ user.user_mobile_phone}} </h6>
+                           <h6> Mobile Number: {{ current_user.user_mobile_phone}} </h6>
                         {% endif %}
                     </div>
                 </div>

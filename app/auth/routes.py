@@ -84,11 +84,11 @@ def signin():
         password = form.password.data
 
         # check if email exist
-        email_exist = Users.query.filter_by(user_email=user_email).first()
-        if email_exist:
+        user = Users.query.filter_by(user_email=user_email).first()
+        if user:
             # check if pasword match email
-            if bcrypt.check_password_hash(email_exist.user_password, password):
-                login_user(email_exist, form.remember_me.data)
+            if bcrypt.check_password_hash(user.user_password, password):
+                login_user(user, form.remember_me.data)
                 return redirect(url_for('me.myprofile', myemail_id = user_email ))
 
     return render_template('signin.html', form=form)
