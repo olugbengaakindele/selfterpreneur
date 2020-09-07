@@ -53,9 +53,8 @@ def personalinfo(myemail_id):
             db.session.commit()
             flash("Personal Info has been updated")
             return redirect(url_for('me.myprofile', myemail_id=myemail_id))
+        
         else:
-
-
             name = form.name.data
             email = form.email.data
             mobile_phone = form.mobile_phone.data
@@ -65,7 +64,6 @@ def personalinfo(myemail_id):
             # load to database
             Personal_Info.create_personal_info(
                 name, email, mobile_phone, work_phone, city, province)
-
             return redirect(url_for('me.myprofile',  myemail_id = email))
 
     # get the info from  personal, business and socail media to render

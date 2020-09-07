@@ -32,7 +32,7 @@
                                 <span class="error">
                                     {% if form.confirm_password.errors %}
                                       {% for error in form.confirm_password.errors %}
-                                        {{ error }}
+                                      <h6 class="text-danger">{{ error }}</h6>
                                       {% endfor %}
                                     {% endif %}
                                   </span>

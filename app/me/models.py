@@ -30,11 +30,11 @@ class Personal_Info(db.Model):
         return ("Personal Info Created")
 
     @classmethod
-    def create_personal_info(cls, name, email,  mobile_phone, work_phone, city,province):
+    def create_personal_info(cls, name, email,  mobile_phone, user_work_phone, city,province):
         user = cls(user_name=name,
                    user_email= email,
                    user_mobile_phone=mobile_phone,
-                   user_work_phone=work_phone,
+                   user_work_phone = user_work_phone,
                    user_city=city,
                    user_province = province)
 

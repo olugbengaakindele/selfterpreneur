@@ -1,43 +1,39 @@
-{% extends 'mypage_macro.html' %}
-{{ super() }}
+{% extends 'layout.html' %}
 
-{% block content_display %}
-<div class="row">
-    <div class="col-12">
-        <div class="card col-lg-12 col-sm-12">
+
+
+
+{% block page_body %}
+{{ super() }}
+ <!-- second row with profile display-->
+ <div class="row">
+    <!-- basic profile info column-->
+    <div class="col-sm-3 col-lg-3">
+        <div class="card">
+            <div class="card-header bg-info">
+                <img class="img-fluid rounded-circle" src="{{url_for('static',filename= 'profile_pictures/default.jpg') }}"
+                    alt="" />
+            </div>
             <div class="card-body">
-                <h6>Personal Info Section</h6>
-                <hr>
-                <div class="row  text-weight-normal">
-                    <div class="col-6">
-                        <h6> Name: {{ current_user.user_name}} </h6>
-                    </div>
-                    <div class="col-6">
-                        <h6 class="h6"> Email:{{ current_user.user_email}} </h6>
-                    </div>
-                </div>
-               <div class="row  text-weight-normal">
-                    <div class="col-6">
-                        {% if user_work_phone == "" %}
-                           <h6> Work Phone: -  </h6>
-                        {% else %}
-                           <h6> Work Number: {{ current_user.user_work_phone}} </h6>
-                        {% endif %}
-                    </div>
-                    <div class="col-6">
-                        {% if user_mobile_phone == "" %}
-                           <h6> Mobile Phone: -  </h6>
-                        {% else %}
-                           <h6> Mobile Number: {{ current_user.user_mobile_phone}} </h6>
-                        {% endif %}
-                    </div>
-                </div>
+                <h6 class="small">{{ current_user.user_name.title()}}</h6>
+
+            </div>
+            <div class="card-footer">
 
             </div>
         </div>
+
     </div>
+
+    <div class="col-sm-6 col-lg-6"> </div>
+
+<div class="col-sm-3 col-lg-3"></div>
+
 
 </div>
 
 
-{% endblock content_display %}
+</div>
+</div>
+
+{% endblock page_body %}
