@@ -10,18 +10,27 @@
     <!-- basic profile info column-->
     <div class="col-sm-3 col-lg-3">
         <div class="card">
-            <div class="card-header bg-info">
+            <div class="card-header bg-light" id="mypage-card-header">
                 <img class="img-fluid rounded-circle" src="{{url_for('static',filename= 'profile_pictures/default.jpg') }}"
                     alt="" />
             </div>
-            <div class="card-body">
-                <h6 class="small">{{ current_user.user_name.title()}}</h6>
-                <h6 class="small">{{ current_user.user_email.title()}}</h6>
-                <h6 class="small">{{ current_user.user_name.title()}}</h6>
-            </div>
-            <div class="card-footer justify-content-center">
-                <button id="btn-edit-myprofile" type="button" class="btn btn-info justify-content-center">Edit Profile</button>
-            </div>
+            {% if user %}
+
+                <div class="card-body">
+                    <h6 class="small">{{ current_user.user_name.title()}}</h6>
+                    <h6 class="small">{{ current_user.user_email.title()}}</h6>
+                    <h6 class="small">{{ current_user.user_name.title()}}</h6>
+                </div>
+
+                <div class="card-footer justify-content-center">
+                    <button id="btn-edit-myprofile" type="button" class="btn btn-info justify-content-center">Edit Profile</button>
+                </div>
+            {% else %}
+
+                <div class="card-footer justify-content-center">
+                    <button id="btn-edit-myprofile" type="button" class="btn btn-info justify-content-center">Create Profile</button>
+                </div>
+            {% endif %}
         </div>
 
     </div>

@@ -34,6 +34,7 @@ def reg_user():
         if email_exists:
             flash(u'Email already exist, please login into your account', 'error')
             return redirect(url_for('auth.reg_user'))
+            
         else:
             # the function below creates new user records in database
             Users.create_user(name, email, password)
@@ -41,7 +42,7 @@ def reg_user():
 
             # this part send emil verfication link
             token = s.dumps(email_con, salt='email_verify')
-            msg = Message('Confirm Email', sender='akindelegbenga@gmail.com', recipients=[email_con])
+            msg = Message('Confirm Email', sender='olutest123@gmail.com', recipients=[email_con])
             link = url_for('auth.verify_email', token=token, _external=True)
             msg.body = 'Your link is {}'.format(link)
             mail.send(msg)

@@ -72,4 +72,4 @@ def personalinfo(myemail_id):
 
 @me.route("/home")
 def home():
-    return "home.html"
+    return "index.html"

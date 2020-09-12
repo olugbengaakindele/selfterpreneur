@@ -54,8 +54,7 @@
                     {% if current_user.is_authenticated %}
 
                     <li class="nav-item">
-                        <a class="nav-link text-lowercase text-muted">Welcome {{ current_user.user_name.title()
-                        }}</a>
+                        <a class="nav-link text-lowercase text-muted">Welcome {{ current_user.user_name.title()}}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('auth.signout') }}">Logout</a>
