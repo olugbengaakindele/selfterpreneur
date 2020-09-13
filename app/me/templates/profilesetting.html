@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{{ super() }}
+{% block page_body %}
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="nav-item m-3">
+            <a href="#profile" class="nav-link active" data-toggle="tab">Profile</a>
+        </li>
+        <li class="nav-item  m-3">
+            <a href="#account" class="nav-link" data-toggle="tab">Account</a>
+        </li>
+        <li class="nav-item  m-3">
+            <a href="#messages" class="nav-link" data-toggle="tab">Messages</a>
+        </li>
+        <li class="nav-item  m-3">
+            <a href="#security" class="nav-link" data-toggle="tab">Security</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="profile">
+            <p>Home tab content ...</p>
+        </div>
+        <div class="tab-pane fade" id="account">
+            <p>account tab content ...</p>
+        </div>
+        <div class="tab-pane fade" id="messages">
+            <p>Messages tab content ...</p>
+        </div>
+        <div class="tab-pane fade" id="security">
+            <p>security tab content ...</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock page_body %}

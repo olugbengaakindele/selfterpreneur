@@ -23,12 +23,14 @@
                 </div>
 
                 <div class="card-footer justify-content-center">
-                    <button id="btn-edit-myprofile" type="button" class="btn btn-info justify-content-center">Edit Profile</button>
+                    <a href="{{ url_for('me.profilesetting') }}"></a><button id="btn-edit-myprofile" type="button" class="btn btn-info justify-content-center">
+                    Edit Profile</button></a>
                 </div>
             {% else %}
 
                 <div class="card-footer justify-content-center">
-                    <button id="btn-edit-myprofile" type="button" class="btn btn-info justify-content-center">Create Profile</button>
+                   <a href="{{url_for('me.profilesetting') }}"><button id="btn-edit-myprofile" type="button" class="btn btn-info justify-content-center">Create Profile
+                   </button></a>
                 </div>
             {% endif %}
         </div>

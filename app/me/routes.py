@@ -69,6 +69,13 @@ def personalinfo(myemail_id):
     # get the info from  personal, business and socail media to render
     return render_template("personalinfo.html", form=form)
 
+@me.route("/profilesetting")
+def profilesetting():
+    return render_template("profilesetting.html")
+
+
+
+
 
 @me.route("/home")
 def home():

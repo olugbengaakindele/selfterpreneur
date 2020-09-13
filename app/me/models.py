@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app import bcrypt
 from app import login_manager
 from datetime import datetime
-from flask_login import login_user, logout_user, login_required
+
 
 class Personal_Info(db.Model):
     __tablename__ = 'personal_info'
@@ -24,7 +24,7 @@ class Personal_Info(db.Model):
     def __init__(self, user_name,user_email, user_mobile_phone, user_work_phone, user_postcode, user_city,user_country,user_bio,user_url,user_twitter,user_company ):
         self.user_name = user_name
         self.user_email = user_email
-        self = user_mobile_phone
+        self.user_mobile_phone = user_mobile_phone
         self.user_work_phone = user_work_phone
         self.user_postcode = user_postcode
         self.user_city = user_city

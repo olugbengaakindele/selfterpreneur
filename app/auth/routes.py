@@ -1,3 +1,5 @@
+#app/auth/routes
+
 from app.auth import auth
 import os
 from flask import render_template, url_for, redirect, request, flash
@@ -41,17 +43,18 @@ def reg_user():
             flash('Registration Successful, an email confirmation link has been sent to your email', category='success')
 
             # this part send emil verfication link
-            token = s.dumps(email_con, salt='email_verify')
+            '''token = s.dumps(email_con, salt='email_verify')
             msg = Message('Confirm Email', sender='olutest123@gmail.com', recipients=[email_con])
             link = url_for('auth.verify_email', token=token, _external=True)
             msg.body = 'Your link is {}'.format(link)
-            mail.send(msg)
+            mail.send(msg)'''
             return redirect(url_for('me.home'))
 
     return render_template('reg.html', form=form)
 
 
 # this url takes in the emil verifiction
+''' 
 @auth.route('/email_verification/<token>')
 def verify_email(token):
     try:
@@ -74,6 +77,7 @@ def verify_email(token):
         flash('Thank you for confirming your email address!')
     return redirect(url_for('me.home'))
 
+'''
 
 @auth.route('/signin', methods=['GET', 'POST'])
 def signin():
