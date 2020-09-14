@@ -18,8 +18,42 @@
         </li>
     </ul>
     <div class="tab-content">
+        <!-- Public Profile tab content -->
         <div class="tab-pane fade show active" id="profile">
-            <p>Home tab content ...</p>
+            <h5>Public profile</h5>
+            <hr>
+            <div class="container">
+                <form class="mt-50 w-75 mx-auto" method="POST" action="/signin">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group ">
+                        {{ form.name.label  }}
+                        {{ form.name (placeholder ='Email',class ='w-100 m-auto', value =current_user.user_name)}}
+                    </div>
+
+                    <div class="form-group ">
+                        {{ form.email.label  }}
+                        {{ form.email(placeholder ='Email',class ='w-100 m-auto', value =current_user.user_email)}}
+                    </div>
+                    <div class="form-group ">
+                        {{ form.work_phone.label  }}
+                        {{ form.mobile_phone  (placeholder ='Email',class ='w-100 m-auto')}}
+                    </div>
+                    <div class="form-group ">
+                        {{ form.work_phone.label  }}
+                        {{ form.work_phone  (placeholder ='Email',class ='w-100 m-auto')}}
+                    </div>
+
+                    <div class="form-group ">
+                        {{ form.postcode.label  }}
+                        {{ form.postcode  (placeholder ='Email',class ='w-100 m-auto')}}
+                    </div>
+                    <div class="form-group ">
+                        {{ form.bio.label  }}
+                        {{ form.bio  (placeholder ='Bio',class ='w-100 m-auto')}}
+                    </div>
+                </form>
+            </div>
+
         </div>
         <div class="tab-pane fade" id="account">
             <p>account tab content ...</p>
@@ -32,8 +66,8 @@
         </div>
     </div>
 </div>
-
-
-
-
 {% endblock page_body %}
+
+{% block add_scripts %}
+    <script src="{{url_for('static',filename = 'js/profilesetting.js')}}"> </script>
+{% endblock add_scripts %}

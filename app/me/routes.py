@@ -4,7 +4,7 @@ from app.me import me
 from app.auth.models import Users
 from flask import render_template, request, redirect, url_for,flash,jsonify
 from flask_login import login_user, logout_user, login_required
-from app.me.forms import FrmPersonalInfo
+from app.me.forms import frmProfile
 from app.me.models import Personal_Info
 from app import db
 
@@ -29,7 +29,7 @@ def myprofile(myemail_id):
 @me.route("/personalinfo/<myemail_id>", methods=['GET', 'POST'])
 @login_required
 def personalinfo(myemail_id):
-    form = FrmPersonalInfo()
+    form = frmProfile()
     name = None
     email = None
     mobile_phone = None
@@ -71,7 +71,8 @@ def personalinfo(myemail_id):
 
 @me.route("/profilesetting")
 def profilesetting():
-    return render_template("profilesetting.html")
+    form = frmProfile()
+    return render_template("profilesetting.html", form = form)
 
 
 
