@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField, TextField, TextAreaField
+from wtforms import StringField, SubmitField, SelectField, PasswordField, BooleanField, TextField, TextAreaField
 from wtforms.validators import Email, DataRequired, EqualTo, ValidationError
 from wtforms.fields import html5 as h5fields
 from wtforms.widgets import html5 as h5widgets
@@ -18,8 +18,9 @@ class frmProfile(FlaskForm):
     email = StringField('Email', validators=[DataRequired()])
     mobile_phone = StringField('Mobile Number', validators=[DataRequired(), num_validate])
     work_phone = StringField('Work Number', validators=[DataRequired()])
-    postcode  = StringField('Postcode', validators=[DataRequired()])
+    country = SelectField(u'Country', choices=[('1', 'Canada'), ('2', 'UK'), ('3', 'USA')])
+    postcode = StringField('Postcode', validators=[DataRequired()])
     city = StringField('City', validators=[DataRequired()])
     province = StringField('Province', validators=[DataRequired()])
     bio = TextAreaField('Bio')
-    submit = SubmitField('Submit')
+    update = SubmitField('Update')

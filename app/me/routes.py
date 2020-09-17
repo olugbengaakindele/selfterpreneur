@@ -2,7 +2,7 @@
 
 from app.me import me
 from app.auth.models import Users
-from flask import render_template, request, redirect, url_for,flash,jsonify
+from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_user, logout_user, login_required
 from app.me.forms import frmProfile
 from app.me.models import Personal_Info
@@ -10,9 +10,9 @@ from app import db
 
 
 @me.route("/profilesummary/<myemail_id>")
-@login_required
+# @login_required
 def myprofile(myemail_id):
-    user = Personal_Info.query.filter_by(user_email = myemail_id).first()
+    user = Personal_Info.query.filter_by(user_email=myemail_id).first()
     if user:
         '''user_details = {}
         user_details = { 'name' : user.user_name ,'email' : user.user_email,'m_phone' : user.user_mobile_phone,
@@ -20,7 +20,7 @@ def myprofile(myemail_id):
                              'province' : user.user_province}
         jsonify(user_details)'''
         # get the info from  personal, business and social media to render
-        return render_template("mypage.html", user = user)
+        return render_template("mypage.html", user=user)
     else:
         flash("Create a profile")
         return render_template("mypage.html")
@@ -37,11 +37,9 @@ def personalinfo(myemail_id):
     city = None
     province = None
 
-
-
     if form.validate_on_submit():
         user_info = Personal_Info.query.filter_by(user_email=myemail_id).first()
-        #if user already has personal info details then update record else create new one
+        # if user already has personal info details then update record else create new one
         if user_info:
             user_info.user_name = form.name.data
             user_info.user_email = form.email.data
@@ -53,7 +51,7 @@ def personalinfo(myemail_id):
             db.session.commit()
             flash("Personal Info has been updated")
             return redirect(url_for('me.myprofile', myemail_id=myemail_id))
-        
+
         else:
             name = form.name.data
             email = form.email.data
@@ -64,18 +62,49 @@ def personalinfo(myemail_id):
             # load to database
             Personal_Info.create_personal_info(
                 name, email, mobile_phone, work_phone, city, province)
-            return redirect(url_for('me.myprofile',  myemail_id = email))
+            return redirect(url_for('me.myprofile', myemail_id=email))
 
     # get the info from  personal, business and socail media to render
     return render_template("personalinfo.html", form=form)
 
-@me.route("/profilesetting")
+
+@me.route("/profilesetting", methods=["GET", "POST"])
+@login_required
 def profilesetting():
-    form = frmProfile()
-    return render_template("profilesetting.html", form = form)
+    form_profile = frmProfile()
+    name = None
+    email = None
+    mobile_phone = None
+    work_phone = None
+    country = None
+    city = None
+    postcode = None
+    bio = None
+
+    if form_profile.validate_on_submit():
+        # check user profile already exisit
+        name = form_profile.name.data
+        email = form_profile.email.data
+        mobile_phone = form_profile.mobile_phone.data
+        work_phone = form_profile.work_phone.data
+        country = form_profile.country.data
+        city = form_profile.city.data
+        postcode = form_profile.postcode.data
+        bio = form_profile.bio.data
+
+        user_exist = Personal_Info.query.filter_by(user_email=email).first()
+        if user_exist:
 
 
+            flash("user_Exist")
+            form_profile.name.data = None
+            return redirect(url_for('me.personalinfo'))
+        else:
 
+            flash("user_does not_exit")
+            return redirect(url_for('me.personalinfo', m="no email"))
+
+    return render_template("profilesetting.html", form=form_profile)
 
 
 @me.route("/home")

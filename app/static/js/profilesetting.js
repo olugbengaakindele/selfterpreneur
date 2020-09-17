@@ -1,4 +1,6 @@
 const pstcod = document.querySelector("#postcode");
+const cmbCountry= document.querySelector("#country");
+
 /*http://api.postcodes.io/postcodes/OX495NU*/
 
 
@@ -6,8 +8,11 @@ const pstcod = document.querySelector("#postcode");
 loadEventListeners();
 function loadEventListeners() {
     pstcod.addEventListener("change", getcity);
+    cmbCountry.addEventListener("change", runAjax);
 
 }
+
+
 
 function  getcity(){
 pst_val = pstcod.value;

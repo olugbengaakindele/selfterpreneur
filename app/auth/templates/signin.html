@@ -10,7 +10,7 @@
                     <h3 class="h3 text-center mx-auto">LOGIN</h3>
                 </div>
                 <div class="card-body">
-                    <form class="mt-50 w-75 mx-auto" method="POST" action="/signin">
+                    <form class="mt-50 w-75 mx-auto" method="POST">
                         {{ form.hidden_tag() }}
                         <span class="error">
                             {% if form.password.errors %}

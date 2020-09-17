@@ -28,7 +28,7 @@ class Personal_Info(db.Model):
         self.user_work_phone = user_work_phone
         self.user_postcode = user_postcode
         self.user_city = user_city
-        self.user_cuntry = user_country
+        self.user_country = user_country
         self.user_bio = user_bio
         self.user_url= user_url
         self.user_twitter = user_twitter
@@ -45,7 +45,7 @@ class Personal_Info(db.Model):
                    user_work_phone = work_phone,
                    user_postcode = postcode,
                    user_city = city,
-                   user_cuntry = country,
+                   user_country = country,
                    user_bio = bio,
                    user_url= url,
                    user_twitter = twitter,
