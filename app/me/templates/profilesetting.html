@@ -3,9 +3,9 @@
 {{ super() }}
 {% block page_body %}
 <div class="container">
-    <ul class="nav nav-tabs">
-        <li class="nav-item m-3">
-            <a href="#profile" class="nav-link active" data-toggle="tab">Profile</a>
+    <ul class="nav nav-tabs ">
+        <li class="nav-item m-3 ">
+            <a href="#profile" class="nav-link active bg-dark text-light" data-toggle="tab">Profile</a>
         </li>
         <li class="nav-item  m-3">
             <a href="#account" class="nav-link" data-toggle="tab">Account</a>
@@ -26,7 +26,7 @@
             {% endif %}
             <hr>
             <div class="container">
-                <form class="mt-50 w-75 mx-auto" method="post" action="">
+                <form class="mt-50 w-75 mx-auto" method="POST" action="">
                     {{ form.hidden_tag() }}
                     <div class="form-group ">
                         {{ form.name.label  }}

@@ -82,7 +82,7 @@ def profilesetting():
     bio = None
 
     if form_profile.validate_on_submit():
-        # check user profile already exisit
+        
         name = form_profile.name.data
         email = form_profile.email.data
         mobile_phone = form_profile.mobile_phone.data
@@ -91,7 +91,7 @@ def profilesetting():
         city = form_profile.city.data
         postcode = form_profile.postcode.data
         bio = form_profile.bio.data
-
+        # check user profile already exisit
         user_exist = Personal_Info.query.filter_by(user_email=email).first()
         if user_exist:
 
