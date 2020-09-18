@@ -26,7 +26,7 @@
             {% endif %}
             <hr>
             <div class="container">
-                <form class="mt-50 w-75 mx-auto" method="POST" action="">
+                <form class="mt-50 w-75 mx-auto" method="post" action="">
                     {{ form.hidden_tag() }}
                     <div class="form-group ">
                         {{ form.name.label  }}
@@ -61,7 +61,7 @@
                     </div>
                     <div class="form-group ">
                     
-                        {{ form.update  (placeholder ='Update',class ='btn btn-info')}}
+                        {{ form.submit  (placeholder ='Update',class ='btn btn-info')}}
                     </div>
                 </form>
             </div>

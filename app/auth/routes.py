@@ -92,7 +92,7 @@ def signin():
         # check if email exist
         user = Users.query.filter_by(user_email=user_email).first()
         if user:
-            # check if pasword match email
+            # check if password match email
             if bcrypt.check_password_hash(user.user_password, password):
                 login_user(user, form.remember_me.data)
                 return redirect(url_for('me.myprofile', myemail_id = user_email ))

@@ -10,7 +10,7 @@ from app import db
 
 
 @me.route("/profilesummary/<myemail_id>")
-# @login_required
+@login_required
 def myprofile(myemail_id):
     user = Personal_Info.query.filter_by(user_email=myemail_id).first()
     if user:
@@ -26,9 +26,9 @@ def myprofile(myemail_id):
         return render_template("mypage.html")
 
 
-@me.route("/personalinfo/<myemail_id>", methods=['GET', 'POST'])
+@me.route("/personalinfo", methods=['GET', 'POST'])
 @login_required
-def personalinfo(myemail_id):
+def personalinfo():
     form = frmProfile()
     name = None
     email = None
@@ -68,43 +68,11 @@ def personalinfo(myemail_id):
     return render_template("personalinfo.html", form=form)
 
 
-@me.route("/profilesetting", methods=["GET", "POST"])
-@login_required
-def profilesetting():
-    form_profile = frmProfile()
-    name = None
-    email = None
-    mobile_phone = None
-    work_phone = None
-    country = None
-    city = None
-    postcode = None
-    bio = None
+@me.route("/profilesetting/<user_email>", methods=["GET", "POST"])
+def profilesetting(user_email):
+    form_Profile = frmProfile()
 
-    if form_profile.validate_on_submit():
-        
-        name = form_profile.name.data
-        email = form_profile.email.data
-        mobile_phone = form_profile.mobile_phone.data
-        work_phone = form_profile.work_phone.data
-        country = form_profile.country.data
-        city = form_profile.city.data
-        postcode = form_profile.postcode.data
-        bio = form_profile.bio.data
-        # check user profile already exisit
-        user_exist = Personal_Info.query.filter_by(user_email=email).first()
-        if user_exist:
-
-
-            flash("user_Exist")
-            form_profile.name.data = None
-            return redirect(url_for('me.personalinfo'))
-        else:
-
-            flash("user_does not_exit")
-            return redirect(url_for('me.personalinfo', m="no email"))
-
-    return render_template("profilesetting.html", form=form_profile)
+    return render_template("profilesetting.html", form=form_Profile)
 
 
 @me.route("/home")
