@@ -33,5 +33,8 @@ class frmTest(FlaskForm):
     country = SelectField('Country', choices=[('1', 'Canada'), ('2', 'UK'), ('3', 'USA')])
     postcode = StringField('Postcode', validators=[DataRequired()])
     city = StringField('City', validators=[DataRequired()])
-
+    province = StringField('Province')
+    bio = TextAreaField('Bio')
+   
+   
     submit= SubmitField("Save")

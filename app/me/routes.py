@@ -13,9 +13,37 @@ from app import db
 @login_required
 def myprofile():
     form =  frmTest()
+   
     if form.validate_on_submit():
-        flash('form was validated')
-        return render_template("mypage.html", form = form)
+        #check if user exist 
+        user_info = Personal_Info.query.filter_by(user_email=form.email.data).first()
+        if user_info:
+            #Edit profile data
+            user_info.user_name = form.name.data
+            user_info.user_email = form.email.data
+            user_info.user_mobile_phone = form.mobile_phone.data
+            user_info.user_work_phone = form.work_phone.data
+            user_info.user_city = form.city.data
+            user_info.user_country = form.country.data
+            db.session.add(user_info)
+            db.session.commit()
+            flash("Personal Info has been updated")
+            return redirect(url_for('me.myprofile'))
+        else:
+
+            name = form.name.data
+            email = form.email.data
+            mobile_phone = form.mobile_phone.data
+            work_phone = form.work_phone.data
+            city = form.city.data
+            country = form.country.data
+            postcode = form.postcode.data
+            # load to database
+            Personal_Info.create_personal_info(
+                name, email, mobile_phone, work_phone,postcode, city, country,"","","","")
+           
+            flash('form was validated')
+            return render_template("mypage.html", form = form)
 
 
     return render_template("mypage.html", form = form)
