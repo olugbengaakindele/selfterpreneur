@@ -1,22 +1,8 @@
-{% extends 'layout.html' %}
+{% extends 'accounts_layout.html' %}
 
 {{ super() }}
-{% block page_body %}
-<div class="container">
-    <ul class="nav nav-tabs ">
-        <li class="nav-item m-3 ">
-            <a href="#profile" class="nav-link active bg-dark text-light" data-toggle="tab">Profile</a>
-        </li>
-        <li class="nav-item  m-3">
-            <a href="#account" class="nav-link" data-toggle="tab">Account</a>
-        </li>
-        <li class="nav-item  m-3">
-            <a href="#messages" class="nav-link" data-toggle="tab">Messages</a>
-        </li>
-        <li class="nav-item  m-3">
-            <a href="#security" class="nav-link" data-toggle="tab">Security</a>
-        </li>
-    </ul>
+{% block content_section %}
+
     <div class="tab-content">
         <!-- Public Profile tab content -->
         <div class="tab-pane fade show active" id="profile">
@@ -26,8 +12,8 @@
             {% endif %}
             <hr>
             <div class="container">
-                <form class="mt-50 w-75 mx-auto" method="post" action="">
-                    {{ form.hidden_tag() }}
+                <form class="mt-50 w-75 mx-auto" method = "post">
+                    {{ form.hidden_tag() }} 
                     <div class="form-group ">
                         {{ form.name.label  }}
                         {{ form.name (placeholder ='Name',class ='w-100 m-auto', value =current_user.user_name)}}
@@ -78,7 +64,7 @@
         </div>
     </div>
 </div>
-{% endblock page_body %}
+{% endblock content_section %}
 
 {% block add_scripts %}
     <script src="{{url_for('static',filename = 'js/profilesetting.js')}}"> </script>

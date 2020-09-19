@@ -14,7 +14,7 @@ from datetime import datetime
 s = URLSafeTimedSerializer('Thisissecret')
 
 
-@auth.route('/home')
+@auth.route('/home', methods = ["GET","POST"])
 def home():
     form = SearchForm()
     return render_template('index.html', title='home_page', form = form)
@@ -48,7 +48,7 @@ def reg_user():
             link = url_for('auth.verify_email', token=token, _external=True)
             msg.body = 'Your link is {}'.format(link)
             mail.send(msg)'''
-            return redirect(url_for('me.home'))
+            return redirect(url_for('auth.home'))
 
     return render_template('reg.html', form=form)
 
@@ -95,7 +95,7 @@ def signin():
             # check if password match email
             if bcrypt.check_password_hash(user.user_password, password):
                 login_user(user, form.remember_me.data)
-                return redirect(url_for('me.myprofile', myemail_id = user_email ))
+                return redirect(url_for('me.myprofile'))
 
     return render_template('signin.html', form=form)
 
@@ -104,7 +104,7 @@ def signin():
 @login_required
 def signout():
     logout_user()
-    return redirect(url_for('me.home'))
+    return redirect(url_for('auth.home'))
 
 
 # this routes deletes existing emails to be used for testing

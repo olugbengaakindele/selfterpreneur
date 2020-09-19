@@ -16,7 +16,7 @@ def num_validate(form, field):
 class frmProfile(FlaskForm):
     name = StringField("Name", validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired()])
-    mobile_phone = StringField('Mobile Number', validators=[DataRequired(), num_validate])
+    mobile_phone = StringField('Mobile Number', validators=[DataRequired()])
     work_phone = StringField('Work Number', validators=[DataRequired()])
     country = SelectField('Country', choices=[('1', 'Canada'), ('2', 'UK'), ('3', 'USA')])
     postcode = StringField('Postcode', validators=[DataRequired()])
@@ -24,3 +24,14 @@ class frmProfile(FlaskForm):
     province = StringField('Province', validators=[DataRequired()])
     bio = TextAreaField('Bio')
     submit = SubmitField('Update')
+
+class frmTest(FlaskForm):
+    name=StringField('Name')
+    email=StringField("Email",validators=[DataRequired(), Email()])
+    mobile_phone = StringField('Mobile Number')
+    work_phone = StringField('Work Number')
+    country = SelectField('Country', choices=[('1', 'Canada'), ('2', 'UK'), ('3', 'USA')])
+    postcode = StringField('Postcode', validators=[DataRequired()])
+    city = StringField('City', validators=[DataRequired()])
+
+    submit= SubmitField("Save")
