@@ -109,3 +109,9 @@ def profilesetting():
             return redirect(url_for("auth.signin"))
 
     return render_template("profilesetting.html", form=form_Profile)
+
+@me.route("/account/account",methods=["GET","POST"])
+@login_required
+def myaccount():
+
+    return render_template("myaccount.html")

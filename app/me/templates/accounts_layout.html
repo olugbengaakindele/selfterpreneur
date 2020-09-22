@@ -12,19 +12,22 @@
 
         <ul class="nav nav-tabs ">
             <li class="nav-item m-3 ">
-                <a href="{{url_for('me.myprofile')}}" class="nav-link active bg-dark text-light" data-toggle="tab">Profile</a>
+                <a href="{{url_for('me.myprofile')}}" class="nav-link active bg-dark text-light">Profile</a>
             </li>
             <li class="nav-item  m-3">
-                <a href="#account" class="nav-link" data-toggle="tab">Account</a>
+                <a href="{{url_for('me.myaccount') }}" class="nav-link" >Account</a>
             </li>
             <li class="nav-item  m-3">
-                <a href="#messages" class="nav-link" data-toggle="tab">Services</a>
+                <a href="#messages" class="nav-link">Services</a>
             </li>
             <li class="nav-item  m-3">
-                <a href="#messages" class="nav-link" data-toggle="tab">Messages</a>
+                <a href="#messages" class="nav-link">Messages</a>
             </li>
             <li class="nav-item  m-3">
-                <a href="#security" class="nav-link" data-toggle="tab">Security</a>
+                <a href="#security" class="nav-link">Security</a>
+            </li>
+            <li class="nav-item  m-3">
+                <a href="#security" class="nav-link">Uploads</a>
             </li>
         </ul>
         {% block section_content %}
