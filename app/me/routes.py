@@ -115,3 +115,21 @@ def profilesetting():
 def myaccount():
 
     return render_template("myaccount.html")
+
+@me.route("/account/services",methods=["GET","POST"])
+@login_required
+def myservices():
+
+    return render_template("myaccount.html")
+
+@me.route("/account/messages",methods=["GET","POST"])
+@login_required
+def mymessages():
+
+    return render_template("messages.html")
+
+@me.route("/account/uploads",methods=["GET","POST"])
+@login_required
+def myuploads():
+
+    return render_template("uploads.html")
