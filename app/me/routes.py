@@ -3,8 +3,8 @@
 from app.me import me
 from app.auth.models import Users
 from flask import render_template, request, redirect, url_for, flash, jsonify
-from flask_login import login_user, logout_user, login_required
-from app.me.forms import frmProfile, frmTest
+from flask_login import login_user, logout_user, login_required, current_user
+from app.me.forms import frmProfile, frmTest, pp_check
 from app.me.models import Personal_Info
 from app import db
 
@@ -13,7 +13,10 @@ from app import db
 @login_required
 def myprofile():
     form =  frmTest()
-   
+    profile_pic = pp_check(current_user.user_email)
+        
+
+
     if form.validate_on_submit():
         #check if user exist 
         user_info = Personal_Info.query.filter_by(user_email=form.email.data).first()
@@ -25,6 +28,7 @@ def myprofile():
             user_info.user_work_phone = form.work_phone.data
             user_info.user_city = form.city.data
             user_info.user_country = form.country.data
+            user_info.user_bio= form.bio.data
             db.session.add(user_info)
             db.session.commit()
             flash("Personal Info has been updated")
@@ -43,11 +47,10 @@ def myprofile():
                 name, email, mobile_phone, work_phone,postcode, city, country,"","","","")
            
             flash('form was validated')
-            return render_template("mypage.html", form = form)
+            return render_template("mypage.html", form = form )
 
 
-    return render_template("mypage.html", form = form)
-
+    return render_template("mypage.html", form = form, profile_pic = profile_pic )
 
 @me.route("/personalinfo", methods=['GET', 'POST'])
 @login_required

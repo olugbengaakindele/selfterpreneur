@@ -10,8 +10,8 @@
         <div class="col-sm-3 col-lg-3">
             <div class="card">
                 <div class="card-header bg-light" id="mypage-card-header">
-                    <img class="img-fluid rounded-circle" src="{{url_for('static',filename= 'profile_pictures/default.jpg') }}"
-                        alt="" />
+                    <img class="img-fluid rounded-circle" src= "{{url_for('static',filename= 'profile_pictures/')}}{{ profile_pic }}"
+                    alt="Responsive image" />
                 </div>
                 
                     <div class="card-footer justify-content-center">
@@ -54,7 +54,10 @@
                     {{ form.city.label }}
                     {{ form.city (placeholder ='Work Number',class ='w-100 m-auto')}}
                 </div>
-              
+                <div class="form-group">
+                    {{ form.bio.label }}
+                    {{ form.bio (placeholder ='Tell the world about your services',class ='w-100 m-auto')}}
+                </div>
               
                 <div class="form-groups">
                     {{ form.submit }}

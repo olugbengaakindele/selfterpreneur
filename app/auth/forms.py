@@ -3,6 +3,7 @@ from wtforms import StringField, SubmitField, PasswordField, BooleanField
 from wtforms.validators import Email, DataRequired, EqualTo, ValidationError
 from app.auth.models import Users
 from app import bcrypt
+import os
 
 
 def check_email(form, field):
@@ -52,3 +53,4 @@ class DeleteForm(FlaskForm):
 class SearchForm(FlaskForm):
     what = StringField("what")
     where = StringField("Where", validators=[DataRequired()])
+

@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField, SelectField, PasswordField, Boolea
 from wtforms.validators import Email, DataRequired, EqualTo, ValidationError
 from wtforms.fields import html5 as h5fields
 from wtforms.widgets import html5 as h5widgets
-
+import os
 
 def num_validate(form, field):
     check = len(field.data)
@@ -38,3 +38,22 @@ class frmTest(FlaskForm):
    
    
     submit= SubmitField("Save")
+
+
+def save_pic(file_name, category,pic_name):
+    f_name, f_ext = os.path.splitext(file_name.filename)
+    img_name = category + "_"  + pic_name + "_" + f_name + "_" + f_ext
+    img_path = os.path.join(os.getcwd(),'app/static/profile_pictures',img_name)
+    file_name.save(img_path)
+    return img_name
+
+#check if profile picture already exisit so we can render in prilfe , if not render default
+def pp_check(filename):
+    img_path=os.path.join(os.getcwd(),'app/static/profile_pictures', (filename + "pp.jpg"))
+    if os.path.isfile(img_path ):
+        profile_pic = filename + "pp.jpg"
+    else:
+        profile_pic = "default.jpg"
+    
+    return profile_pic
+
