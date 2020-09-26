@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, PasswordField, BooleanField, TextField, TextAreaField
+from wtforms import StringField, SubmitField, SelectField, PasswordField, BooleanField, TextField, TextAreaField, FileField
 from wtforms.validators import Email, DataRequired, EqualTo, ValidationError
 from wtforms.fields import html5 as h5fields
 from wtforms.widgets import html5 as h5widgets
@@ -34,10 +34,12 @@ class frmTest(FlaskForm):
     postcode = StringField('Postcode', validators=[DataRequired()])
     city = StringField('City', validators=[DataRequired()])
     province = StringField('Province')
-    bio = TextAreaField('Bio')
-   
-   
+    bio = TextAreaField('Bio') 
     submit= SubmitField("Save")
+
+class frmProfilePic(FlaskForm):
+    image = FileField("Upload")
+
 
 
 def save_pic(file_name, category,pic_name):

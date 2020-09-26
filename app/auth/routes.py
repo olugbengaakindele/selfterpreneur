@@ -10,14 +10,16 @@ from app import bcrypt, db
 from app import Message, mail, SECRET_KEY_2
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
 from datetime import datetime
+from app.me.models import Personal_Info
 
 s = URLSafeTimedSerializer('Thisissecret')
 
 
 @auth.route('/home', methods = ["GET","POST"])
 def home():
+    users = Personal_Info.query.all()
     form = SearchForm()
-    return render_template('index.html', title='home_page', form = form)
+    return render_template('index.html', title='home_page', form = form, users= users)
 
 
 @auth.route('/register', methods=['GET', 'POST'])

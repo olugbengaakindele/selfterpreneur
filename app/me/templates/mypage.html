@@ -7,16 +7,23 @@
 
     <!-- basic profile info column-->
     <div class="row">
-        <div class="col-sm-3 col-lg-3">
-            <div class="card">
+        <div class="col-xs-12 col-sm-12 col-lg-3">
+            <div class="card border-0">
                 <div class="card-header bg-light" id="mypage-card-header">
                     <img class="img-fluid rounded-circle" src= "{{url_for('static',filename= 'profile_pictures/')}}{{ profile_pic }}"
                     alt="Responsive image" />
                 </div>
                 
-                    <div class="card-footer justify-content-center">
-                       <a href=""><button id="btn-edit-myprofile" type="button" class="btn btn-info justify-content-center">edit profile picture
+                    <div class="card-footer justify-content-center bg-transparent border-0">
+                       <a href="" id ="edit-profile-picture" class="visible"><button id="btn-edit-myprofile" type="button" class="btn btn-info justify-content-center">edit profile picture
                        </button></a>
+                       <form action="" class="invisible" id= "frm-edt-pp">
+                           {{ formpp.hidden_tag() }}
+                           <div class="form-group">
+                            {{ formpp.image.label  }}
+                            {{ formpp.image }}
+                        </div>
+                       </form>
                     </div>
             
             </div>

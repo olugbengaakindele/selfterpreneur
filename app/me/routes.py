@@ -4,7 +4,7 @@ from app.me import me
 from app.auth.models import Users
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
-from app.me.forms import frmProfile, frmTest, pp_check
+from app.me.forms import frmProfile, frmTest, pp_check, frmProfilePic
 from app.me.models import Personal_Info
 from app import db
 
@@ -13,6 +13,7 @@ from app import db
 @login_required
 def myprofile():
     form =  frmTest()
+    formPP = frmProfilePic()
     profile_pic = pp_check(current_user.user_email)
         
 
@@ -50,7 +51,7 @@ def myprofile():
             return render_template("mypage.html", form = form )
 
 
-    return render_template("mypage.html", form = form, profile_pic = profile_pic )
+    return render_template("mypage.html", form = form, profile_pic = profile_pic, formpp = formPP )
 
 @me.route("/personalinfo", methods=['GET', 'POST'])
 @login_required
