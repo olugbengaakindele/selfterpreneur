@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from app import bcrypt
 from app import login_manager
 from datetime import datetime
-
+from app.auth.models import *
 
 class Personal_Info(db.Model):
     __tablename__ = 'personal_info'
@@ -20,8 +20,10 @@ class Personal_Info(db.Model):
     user_url = db.Column(db.String(1000))
     user_twitter=db.Column(db.String(1000))
     user_company = db.Column(db.String(1000))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
 
-    def __init__(self, user_name,user_email, user_mobile_phone, user_work_phone, user_postcode, user_city,user_country,user_bio,user_url,user_twitter,user_company ):
+
+    def __init__(self, user_name,user_email, user_mobile_phone, user_work_phone, user_postcode, user_city,user_country,user_bio,user_url,user_twitter,user_company, user_id ):
         self.user_name = user_name
         self.user_email = user_email
         self.user_mobile_phone = user_mobile_phone
@@ -33,13 +35,14 @@ class Personal_Info(db.Model):
         self.user_url= user_url
         self.user_twitter = user_twitter
         self.user_company = user_company
+        self.user_id= user_id
 
     def __repr__(self):
         return ("Personal Info Created")
 
     @classmethod
     def create_personal_info(cls, name, email,  mobile_phone, work_phone, postcode,city,country,bio,
-                            url, twitter,company):
+                            url, twitter,company, user_id):
         user = cls(user_name=name,
                    user_email= email,
                    user_mobile_phone=mobile_phone,
@@ -50,7 +53,8 @@ class Personal_Info(db.Model):
                    user_bio = bio,
                    user_url= url,
                    user_twitter = twitter,
-                   user_company = company)
+                   user_company = company,
+                   user_id = user_id)
 
         db.session.add(user)
         db.session.commit()
