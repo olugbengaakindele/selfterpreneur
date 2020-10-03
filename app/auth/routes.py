@@ -12,7 +12,7 @@ from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignat
 from datetime import datetime
 from app.me.models import Personal_Info
 
-s = URLSafeTimedSerializer('Thisissecret')
+s = URLSafeTimedSerializer(os.urandom(32))
 
 
 @auth.route('/home', methods = ["GET","POST"])
@@ -45,18 +45,18 @@ def reg_user():
             flash('Registration Successful, an email confirmation link has been sent to your email', category='success')
 
             # this part send emil verfication link
-            '''token = s.dumps(email_con, salt='email_verify')
+            token = s.dumps(email_con, salt='email_verify')
             msg = Message('Confirm Email', sender='olutest123@gmail.com', recipients=[email_con])
             link = url_for('auth.verify_email', token=token, _external=True)
             msg.body = 'Your link is {}'.format(link)
-            mail.send(msg)'''
+            mail.send(msg)
             return redirect(url_for('auth.home'))
 
     return render_template('reg.html', form=form)
 
 
 # this url takes in the emil verifiction
-''' 
+
 @auth.route('/email_verification/<token>')
 def verify_email(token):
     try:
@@ -77,9 +77,9 @@ def verify_email(token):
         db.session.add(user)
         db.session.commit()
         flash('Thank you for confirming your email address!')
-    return redirect(url_for('me.home'))
+    return redirect(url_for('auth.home'))
 
-'''
+
 
 @auth.route('/signin', methods=['GET', 'POST'])
 def signin():
@@ -93,11 +93,26 @@ def signin():
 
         # check if email exist
         user = Users.query.filter_by(user_email=user_email).first()
-        if user:
+        user_confirmed = user.email_confirmed
+        if user and user_confirmed== 1:
+            
             # check if password match email
             if bcrypt.check_password_hash(user.user_password, password):
                 login_user(user, form.remember_me.data)
                 return redirect(url_for('me.myprofile'))
+        elif user and user_confirmed== 0:
+            email_con= user.user_email
+            flash("Your email has ot been verfied, pleas resend the link to verfiy email")
+            # this part send emil verfication link
+            token = s.dumps(email_con, salt='email_verify')
+            msg = Message('Confirm Email', sender='olutest123@gmail.com', recipients=[email_con])
+            link = url_for('auth.verify_email', token=token, _external=True)
+            msg.body = 'Your link is {}'.format(link)
+            mail.send(msg)
+            return redirect(url_for("auth.signin"))
+        else:
+            flash("user credentails do not match, please enter email and password correctly")
+            return redirect(url_for("auth.sigin"))
 
     return render_template('signin.html', form=form)
 
