@@ -59,3 +59,11 @@ def pp_check(filename):
     
     return profile_pic
 
+#form for adding service
+
+class frmService(FlaskForm):
+
+    sector =SelectField("Sector", choices=[()])
+    sub_sector = SelectField("Sub_Sector", choices=[()])
+    service = StringField("Service")
+

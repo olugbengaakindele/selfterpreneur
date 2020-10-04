@@ -60,7 +60,7 @@ def reg_user():
 @auth.route('/email_verification/<token>')
 def verify_email(token):
     try:
-        email_con = s.loads(token, salt='email_verify', max_age=3600)
+        email_con = s.loads(token, salt='email_verify', max_age=36000)
 
     except SignatureExpired:
         return '<h3>Your token expired</h3>'
@@ -77,7 +77,7 @@ def verify_email(token):
         db.session.add(user)
         db.session.commit()
         flash('Thank you for confirming your email address!')
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('auth.signin'))
 
 
 
@@ -102,7 +102,7 @@ def signin():
                 return redirect(url_for('me.myprofile'))
         elif user and user_confirmed== 0:
             email_con= user.user_email
-            flash("Your email has ot been verfied, pleas resend the link to verfiy email")
+            flash("Your email has not been verfied, pleas resend the link to verfiy email")
             # this part send emil verfication link
             token = s.dumps(email_con, salt='email_verify')
             msg = Message('Confirm Email', sender='olutest123@gmail.com', recipients=[email_con])

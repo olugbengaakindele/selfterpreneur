@@ -60,4 +60,20 @@ class Personal_Info(db.Model):
         db.session.commit()
         return user
     
+class Services(db.Model):
+    __tablename__ = 'services'
 
+    id = db.Column(db.Integer, primary_key = True)
+    sector  = db.Column(db.String(100), nullable = False)
+    sub_sector = db.Column(db.String(100), nullable = False)
+
+    def __init__(self, sector, sub_sector):
+        self.sector = sector
+        self.sub_sector = sub_sector
+
+    @classmethod
+    def AddService(cls,sector,sub_sector):
+        service = cls(sector = sector, sub_sector= sub_sector)
+        db.session.add(service)
+        db.session.commit()
+        

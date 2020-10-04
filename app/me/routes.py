@@ -4,7 +4,7 @@ from app.me import me
 from app.auth.models import Users
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
-from app.me.forms import frmProfile, frmTest, pp_check, frmProfilePic
+from app.me.forms import frmProfile, frmTest, pp_check, frmProfilePic, frmService
 from app.me.models import Personal_Info
 from app import db
 
@@ -65,8 +65,15 @@ def myaccount():
 @me.route("/account/services",methods=["GET","POST"])
 @login_required
 def myservices():
+    frmservice = frmService()
+    '''for field in form:
+        # these are available to you:
+    field.name
+    field.description
+    field.label.text
+    field.data'''
 
-    return render_template("myaccount.html")
+    return render_template("myaccount.html", form =  frmservice)
 
 @me.route("/account/messages",methods=["GET","POST"])
 @login_required
